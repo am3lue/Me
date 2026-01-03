@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed Profile of Francis Masanja (am3lue) - Experience, Education, and Certifications.">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Profile | Francis Masanja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- Navigation -->
+        <nav :class="{ 'scrolled': isScrolled }">
+            <div class="container nav-content">
+                <a href="index.html" class="logo">am3lue<span class="dot">.</span></a>
+                <div class="hamburger" @click="toggleMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" :class="{ 'active': isMenuOpen }">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="profile.html" class="active-link">Detailed Profile</a></li>
+                    <li><a href="repos.html">All Repos</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content: Detailed Profile -->
+        <div class="page-view">
+             <div class="container section">
+                <h2 class="section-title" data-aos="fade-down">Detailed Profile</h2>
+                
+                <div class="details-grid">
+                    <!-- Education Column -->
+                    <div class="detail-column" data-aos="fade-right">
+                        <h3><i class="fas fa-user-graduate"></i> Education</h3>
+                        <div class="timeline">
+                            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                                <span class="date">Sep 2025 - Jul 2028</span>
+                                <h4>BSc. Computer Science (Cyber Security)</h4>
+                                <p>Lovely Professional University (LPU)</p>
+                                <p class="desc">Focus on Cyber/Electronic Operations and Warfare. Active participant in Hackathons.</p>
+                            </div>
+                            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                                <span class="date">Mar 2023 - Jun 2025</span>
+                                <h4>Computer Science</h4>
+                                <p>Arusha Science School</p>
+                                <p class="desc">Foundational studies in Computer Science and Electronics.</p>
+                            </div>
+                        </div>
+
+                        <!-- Certifications (Nested in left column for balance) -->
+                        <h3 style="margin-top: 50px;"><i class="fas fa-certificate"></i> Certifications</h3>
+                        <div class="timeline">
+                            <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                                <span class="date">Nov 2025</span>
+                                <h4>AI Tools Workshop</h4>
+                                <p>Be10x</p>
+                                <p class="desc">Hands-on skills with modern AI tools for productivity, automation, and research.</p>
+                            </div>
+                            <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                                <span class="date">Jan 2025 & Jun 2024</span>
+                                <h4>International Certification of Digital Literacy (ICDL)</h4>
+                                <p>ICDL Foundation</p>
+                                <p class="desc">Key Skills: Cybersecurity, Spreadsheets, Documentation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Column -->
+                    <div class="detail-column" data-aos="fade-left">
+                        <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                        <div class="timeline">
+                            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                                <span class="date">Jun 2025 - Present</span>
+                                <h4>IoT, Web & Cybersecurity Specialist</h4>
+                                <p>Self-Employed (Remote)</p>
+                                <p class="desc">
+                                    • <strong>Embedded Systems:</strong> Designing solutions with Arduino & Raspberry Pi (e.g., Water Billing, Smart Irrigation).<br>
+                                    • <strong>Web Development:</strong> Building apps like the "3lue Library" for file uploads and search.<br>
+                                    • <strong>Cybersecurity:</strong> Securing local servers and IoT devices.<br>
+                                    • <strong>Database:</strong> Managing data for billing and user systems.
+                                </p>
+                            </div>
+                             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                                <span class="date">Jul 2023 - Aug 2025</span>
+                                <h4>Arduino Club Leader</h4>
+                                <p>AfriAcademy Arusha Science School</p>
+                                <p class="desc">Led Internet of Things (IoT) projects, mentored students, and fostered innovation at the Arusha campus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expanded Bio -->
+                <div class="bio-expanded" data-aos="fade-up">
+                    <h3><i class="fas fa-rocket"></i> My Journey</h3>
+                    <p>
+                        I am a passionate technology enthusiast with a strong focus on <strong>Embedded Systems</strong>, <strong>IoT</strong>, <strong>Web Development</strong>, and <strong>Cybersecurity</strong>. 
+                        Over the past few years, I have built and refined several hands-on projects, including an Automated Water Billing System, a Smart Solar Irrigation System, and a Web-based Library Platform.
+                    </p>
+                    <p>
+                        My technical arsenal includes <strong>Arduino</strong>, <strong>Raspberry Pi</strong>, <strong>Julia</strong> programming, database design, and automation systems. 
+                        Currently, I am expanding my expertise in <strong>Cybersecurity</strong> to secure applications and networks, ensuring that the solutions I build are not only functional but also safe and resilient.
+                    </p>
+                    <p>
+                        I enjoy transforming ideas into practical solutions that address real-world challenges and am eager to contribute my knowledge to forward-thinking teams.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; {{ new Date().getFullYear() }} Francis Masanja (am3lue). All rights reserved.</p>
+                <p class="license">Projects available under <i class="fas fa-balance-scale"></i> MIT License.</p>
+                <div class="social-footer">
+                    <a href="https://github.com/francis-masanja"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/am3lue"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

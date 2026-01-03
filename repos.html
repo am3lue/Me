@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="All Repositories by Francis Masanja (am3lue) & francis-masanja.">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Repositories | Francis Masanja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- Navigation -->
+        <nav :class="{ 'scrolled': isScrolled }">
+            <div class="container nav-content">
+                <a href="index.html" class="logo">am3lue<span class="dot">.</span></a>
+                <div class="hamburger" @click="toggleMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" :class="{ 'active': isMenuOpen }">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="profile.html">Detailed Profile</a></li>
+                    <li><a href="repos.html" class="active-link">All Repos</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content: All Repos -->
+        <div class="page-view">
+            <div class="container section">
+                <h2 class="section-title" data-aos="fade-down">All Repositories</h2>
+                <div class="repo-subtitle" style="text-align: center; margin-bottom: 30px; color: var(--text-secondary);" data-aos="fade-up">
+                    Fetching from: <a href="https://github.com/am3lue" class="highlight-link">am3lue</a> & <a href="https://github.com/francis-masanja" class="highlight-link">francis-masanja</a>
+                </div>
+
+                <div v-if="loading" class="loading-state">
+                    <i class="fas fa-circle-notch fa-spin"></i> Fetching repositories...
+                </div>
+                 <div v-else class="projects-grid">
+                    <div class="project-card" v-for="(repo, index) in allRepos" :key="repo.id" data-aos="fade-up" :data-aos-delay="(index % 10) * 50">
+                        <div class="project-header">
+                            <div class="folder-icon"><i class="far fa-folder"></i></div>
+                            <div class="project-links">
+                                <a :href="repo.html_url" target="_blank" title="GitHub Repo"><i class="fab fa-github"></i></a>
+                                <a v-if="repo.homepage" :href="repo.homepage" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <h3>
+                            {{ repo.name }}
+                            <br>
+                            <span class="user-badge" :class="isAm3lue(repo.owner.login) ? 'badge-am3lue' : 'badge-francis'" style="font-size: 0.65rem; vertical-align: middle; margin-top: 5px;">
+                                {{ repo.owner.login }}
+                            </span>
+                        </h3>
+                        <p class="project-desc">{{ repo.description || 'No description available.' }}</p>
+                        <div class="project-tech">
+                            <span v-if="repo.language"><i class="fas fa-circle" style="font-size: 0.6rem; margin-right: 5px;"></i> {{ repo.language }}</span>
+                            <span title="Stars"><i class="fas fa-star"></i> {{ repo.stargazers_count }}</span>
+                            <span title="Forks"><i class="fas fa-code-branch"></i> {{ repo.forks_count }}</span>
+                            <span style="margin-left: auto; font-size: 0.7rem;">{{ formatDate(repo.updated_at) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; {{ new Date().getFullYear() }} Francis Masanja (am3lue). All rights reserved.</p>
+                <p class="license">Projects available under <i class="fas fa-balance-scale"></i> MIT License.</p>
+                <div class="social-footer">
+                    <a href="https://github.com/francis-masanja"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/3lue_jl"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

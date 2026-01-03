@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Francis Masanja (am3lue) - Data Scientist, Embedded Systems Developer, and Robotics Enthusiast based in Tanzania.">
+    <meta name="keywords" content="IoT developer Tanzania, embedded robotics, sustainable tech, Francis Masanja, am3lue, Data Science, smart irrigation, automated billing">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Francis Masanja | Portfolio</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- Navigation -->
+        <nav :class="{ 'scrolled': isScrolled }">
+            <div class="container nav-content">
+                <a href="#" class="logo">am3lue<span class="dot">.</span></a>
+                <div class="hamburger" @click="toggleMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" :class="{ 'active': isMenuOpen }">
+                    <li><a href="#" class="active-link">Home</a></li>
+                    <li><a href="profile.html">Detailed Profile</a></li>
+                    <li><a href="repos.html">All Repos</a></li>
+                    <li><a href="#contact" @click="isMenuOpen = false">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Home View Content -->
+        
+        <!-- Hero / About Section -->
+        <header id="about" class="hero">
+            <div class="container hero-content">
+                <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                    <p class="greeting">Hi, I'm</p>
+                    <h1>Francis Masanja <span class="highlight">(am3lue)</span></h1>
+                    <h2 class="role">IoT, Web Development & Cybersecurity Specialist</h2>
+                    <p class="bio">
+                        I’m a passionate technology enthusiast building practical solutions that blend <strong>Embedded Systems</strong>, <strong>IoT</strong>, and <strong>Web Development</strong>.
+                        Currently, I'm focused on securing these systems with <strong>Cybersecurity</strong> practices while solving real-world problems in sustainable agriculture and automation.
+                    </p>
+                    <p class="philosophy">
+                        <i class="fas fa-quote-left"></i> Turning ideas into reality, one commit at a time... <i class="fas fa-quote-right"></i>
+                    </p>
+                    <div class="location">
+                        <i class="fas fa-map-marker-alt"></i> Tanzania 🇹🇿
+                    </div>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="repos.html" class="btn btn-secondary">View All Projects</a>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+                    <!-- Placeholder for profile photo -->
+                    <div class="profile-placeholder">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Recent Activity Section -->
+        <section id="activity" class="section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Recent Activity</h2>
+                <div v-if="loading" class="loading-state">
+                    <i class="fas fa-circle-notch fa-spin"></i> Loading updates...
+                </div>
+                <div v-else-if="error" class="error-state">
+                    {{ error }}
+                </div>
+                <div v-else-if="activities.length === 0" class="loading-state">
+                    No recent public activity found.
+                </div>
+                <div v-else class="activity-feed">
+                    <div class="activity-item" v-for="(event, index) in activities" :key="event.id" data-aos="fade-up" :data-aos-delay="index * 100">
+                        <div class="activity-icon">
+                            <i v-if="event.type === 'PushEvent'" class="fas fa-code-branch"></i>
+                            <i v-else-if="event.type === 'CreateEvent'" class="fas fa-plus-circle"></i>
+                            <i v-else-if="event.type === 'WatchEvent'" class="fas fa-star"></i>
+                            <i v-else class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p class="activity-msg">
+                                <span class="user-badge" :class="isAm3lue(event.actor.login) ? 'badge-am3lue' : 'badge-francis'">
+                                    <i class="fas fa-user"></i> {{ event.actor.login }}
+                                </span>
+                                {{ getEventMessage(event) }}
+                            </p>
+                            <span class="activity-date">{{ formatDate(event.created_at) }}</span>
+                        </div>
+                        <a :href="'https://github.com/' + event.repo.name" target="_blank" class="activity-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Technical Arsenal</h2>
+                <div class="skills-grid">
+                    <div class="skill-category" v-for="(category, name, index) in skills" :key="name" data-aos="zoom-in" :data-aos-delay="index * 150">
+                        <h3><i :class="getCategoryIcon(name)"></i> {{ name }}</h3>
+                        <div class="skill-tags">
+                            <span class="tag" v-for="skill in category" :key="skill">{{ skill }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Section -->
+        <section id="projects" class="section alt-bg">
+            <span id="repo" style="position: absolute; margin-top: -100px;"></span>
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card" v-for="(project, index) in projects" :key="project.title" data-aos="fade-up" :data-aos-delay="index * 100">
+                        <div class="project-header">
+                            <div class="folder-icon"><i class="far fa-folder"></i></div>
+                            <div class="project-links">
+                                <a :href="project.github" target="_blank" title="GitHub Repo"><i class="fab fa-github"></i></a>
+                                <a v-if="project.demo" :href="project.demo" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <h3>{{ project.title }}</h3>
+                        <p class="project-desc">{{ project.description }}</p>
+                        <div class="project-tech">
+                            <span v-for="tech in project.tech" :key="tech">{{ tech }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-all-container" style="text-align: center; margin-top: 40px;" data-aos="fade-up">
+                    <a href="repos.html" class="btn btn-secondary">View Full Repository Archive</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container contact-container">
+                <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+                <p class="contact-intro" data-aos="fade-up" data-aos-delay="100">
+                    Currently open for collaborations on hardware/software projects, field trials, or IoT mentorship.
+                    Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                </p>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <a href="mailto:masanjafrancis5@gmail.com" class="contact-item" data-aos="fade-right">
+                            <i class="fas fa-envelope"></i>
+                            <span>masanjafrancis5@gmail.com</span>
+                        </a>
+                        <a href="mailto:am3lue@gmail.com" class="contact-item" data-aos="fade-right" data-aos-delay="50">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <span>am3lue@gmail.com</span>
+                        </a>
+                        <a href="https://github.com/francis-masanja" target="_blank" class="contact-item" data-aos="fade-right" data-aos-delay="100">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/francis-masanja</span>
+                        </a>
+                         <a href="https://github.com/am3lue" target="_blank" class="contact-item" data-aos="fade-right" data-aos-delay="200">
+                            <i class="fab fa-github-alt"></i>
+                            <span>github.com/am3lue</span>
+                        </a>
+                        <a href="https://instagram.com/3lue_jl" target="_blank" class="contact-item" data-aos="fade-right" data-aos-delay="300">
+                            <i class="fab fa-instagram"></i>
+                            <span>@3lue_jl</span>
+                        </a>
+                    </div>
+
+                    <!-- Simple Netlify/Formspree ready form structure -->
+                    <form class="contact-form" @submit.prevent="submitForm" data-aos="fade-left">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" v-model="form.name" required placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" v-model="form.email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" v-model="form.message" required placeholder="Hello..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; {{ new Date().getFullYear() }} Francis Masanja (am3lue). All rights reserved.</p>
+                <p class="license">Projects available under <i class="fas fa-balance-scale"></i> MIT License. Last updated: November 2025.</p>
+                <div class="social-footer">
+                    <a href="https://github.com/francis-masanja"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com/am3lue"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Vue.js 3 via CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
